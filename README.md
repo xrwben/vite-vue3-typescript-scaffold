@@ -9,3 +9,5 @@
 4、安装less、autoprefixer处理预编译和前缀，创建postcss.config.js文件方式
 
 5、安装stylelint、stylelint-config-standard、stylelint-config-recommended-vue 处理vue组件中的样式
+
+新建.editorconfig文件配置编辑器默认规则
