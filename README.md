@@ -10,4 +10,8 @@
 
 5、安装stylelint、stylelint-config-standard、stylelint-config-recommended-vue 处理vue组件中的样式
 
-新建.editorconfig文件配置编辑器默认规则
+6、新建.editorconfig文件配置编辑器默认规则，vscode安装EditorConfig插件
+
+7、安装路由vue-router
+
+安装TypeScript，使用tsc --init初始化tsconfig文件

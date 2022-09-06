@@ -4,14 +4,23 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('@/views/home.vue')
+      path: '/',
+      redirect: '/explain'
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/views/about.vue')
+      path: '/explain',
+      name: 'explain',
+      component: () => import('@/views/explain/index.vue')
+    },
+    {
+      path: '/answer',
+      name: 'answer',
+      component: () => import('@/views/answer/index.vue')
+    },
+    {
+      path: '/analysis',
+      name: 'analysis',
+      component: () => import('@/views/analysis/index.vue')
     }
   ]
 })

@@ -17,7 +17,7 @@
     }
 
     & > img {
-      width: 100%;
+      width: 375px;
     }
   }
 </style>
