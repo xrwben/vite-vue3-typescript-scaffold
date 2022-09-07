@@ -12,6 +12,8 @@
 
 6、新建.editorconfig文件配置编辑器默认规则，vscode安装EditorConfig插件
 
-7、安装路由vue-router
+7、安装TypeScript，使用tsc --init初始化tsconfig文件，安装vue-tsc包使用vue-tsc --noEmit对SFC校验但不编译输出
 
-安装TypeScript，使用tsc --init初始化tsconfig文件
+8、安装eslint
+
+9、安装路由vue-router
