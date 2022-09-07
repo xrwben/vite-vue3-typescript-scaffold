@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
 import { VantResolver } from 'unplugin-vue-components/resolvers';
 // import legacy from '@vitejs/plugin-legacy';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd())
@@ -20,7 +21,8 @@ export default defineConfig(({ command, mode }) => {
       }),
       // legacy({
       //   targets: ['defaults', 'not IE 11']
-      // })
+      // }),
+      createHtmlPlugin() // 默认会向 index.html 注入 .env 文件的内容，类似 vite 的 loadEnv函数
     ],
     publicDir: 'public', // 静态资源服务，里面的资源可直接访问
     resolve: {

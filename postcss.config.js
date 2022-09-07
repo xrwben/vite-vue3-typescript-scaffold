@@ -14,7 +14,7 @@ module.exports = {
       exclude: [],
       landscape: false,
       landscapeUnit: 'vw',
-      landscapeWidth: 568
+      landscapeWidth: 640
     },
     'autoprefixer': {
       overrideBrowserslist: [
