@@ -1,4 +1,5 @@
 <template>
+  <header>导航</header>
   <router-view></router-view>
 </template>
 

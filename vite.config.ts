@@ -27,7 +27,7 @@ export default defineConfig(({ command, mode }) => {
     publicDir: 'public', // 静态资源服务，里面的资源可直接访问
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, 'src')
+        '@': path.resolve(__dirname, 'src')
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'] // 默认
     },
