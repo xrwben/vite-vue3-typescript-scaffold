@@ -4,10 +4,6 @@ const router = createRouter({
   history: createWebHistory('/exam-mob/'),
   routes: [
     {
-      path: '/',
-      redirect: '/explain'
-    },
-    {
       path: '/explain',
       name: 'explain',
       component: () => import('@/views/explain/index.vue')

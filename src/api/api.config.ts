@@ -1,0 +1,18 @@
+export default {
+  userInfo: '/api/v1/common/user/info',
+  getCompleteCount: '/api/v1/user/testing/myexamcount',
+  getTestExam: '/api/v1/user/testing/myexam',
+  examExplain: '/api/v1/user/testing/exam_info',
+  isPrivacy: '/api/v1/user/testing/signed/privacy/policy',
+  signPrivacy: '/api/v1/user/testing/sign/privacy/policy',
+  faceVerify: '/api/v1/user/testing/face/recognize',
+  isSign: '/api/v1/user/sign/exist',
+  examPaper: '/api/v1/user/testing/user_paper',
+  saveAnswer: '/api/v1/user/testing/save',
+  examResult: '/api/v1/user/testing/exam_result',
+  getCertificateImgId: '/api/v1/user/testing/certificateImg/rebuild',
+  examRecordList: '/api/v1/user/testing/testing_record',
+  examAnalysis: '/api/v1/user/testing/exam_results/{examId}',
+  ishaveRecords: '/api/v1/user/testing/exam/have/record',
+  getPractiseNum: '/api/v1/user/testing/exam_paper_question_nums',
+}

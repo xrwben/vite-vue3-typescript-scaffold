@@ -32,7 +32,7 @@ const obj: Obj = {
 }
 obj.sex = '男'
 console.log(abc)
-if (abc) {
+if(abc){
   console.log(1)
 }
 var fileArr = [

@@ -31,18 +31,18 @@ export default defineConfig(({ command, mode }) => {
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'] // 默认
     },
-    clearScreen: false,
+    // clearScreen: false,
     // envDir: 'root',
     // envPrefix: 'LB_', // 默认 VITE_
     server: {
       host: true,
       port: 8080,
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://jsonplaceholder.typicode.com',
-      //     changeOrigin: true
-      //   }
-      // }
+      proxy: {
+        '/api': {
+          target: 'http://dev.ntsapps.oa.com/exam/',
+          changeOrigin: true
+        }
+      }
     },
     build: {
       target: 'modules',

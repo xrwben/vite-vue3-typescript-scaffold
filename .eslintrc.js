@@ -32,7 +32,7 @@ module.exports = {
   rules: {
     indent: ['error', 2],
     quotes: ['error', 'single'],
-    semi: ['warn', 'never'],
+    // semi: ['warn', 'always'],
     // 'arrow-spacing': 'error',
     // 'space-before-blocks': 'warn',
     // 'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -50,7 +50,12 @@ module.exports = {
       svg: 'always',
       math: 'always',
     }],
+    // 'vue/script-indent': ['error', 2, {
+    //   'baseIndent': 0,
+    //   'switchCase': 0,
+    //   'ignores': []
+    // }],
     '@typescript-eslint/no-explicit-any': ['off'],
     // "prettier/prettier": "warn",
   },
-}
+};
