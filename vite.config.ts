@@ -36,7 +36,7 @@ export default defineConfig(({ command, mode }) => {
     // envPrefix: 'LB_', // 默认 VITE_
     server: {
       host: true,
-      port: 8080,
+      port: 3000,
       proxy: {
         '/api': {
           target: 'http://dev.ntsapps.oa.com/exam/',

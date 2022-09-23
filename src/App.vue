@@ -1,6 +1,5 @@
 <template>
-  <header>导航</header>
-  {{ store.userInfo }}
+  <!-- <header>导航</header> -->
   <router-view></router-view>
 </template>
 
@@ -10,16 +9,14 @@ import { getUserInfoAPI } from '@/api/index'
 import { examStore } from '@/store/index'
 
 const store = examStore()
-console.log(store.userInfo)
 
 const getUserInfo = () => {
   getUserInfoAPI().then((res: any) => {
-    console.log(res)
     const { code, success, data } = res
     if (code === '200' && success) {
-      // store.userInfo = data
-      store.$patch({
-        userInfo: data
+      store.$patch((state: any) => {
+        state.userInfo = data
+        localStorage.setItem('Tencent_Exam_User_Info', JSON.stringify(data))
       })
     }
   })
@@ -32,6 +29,9 @@ onBeforeMount(() => {
 <style lang="less">
   @import "@/style/reset.less";
   #app {
-    color: #666;
+    width: 100%;
+    height: 100vh;
+    background: #f5f7f9;
+    overflow: auto;
   }
 </style>

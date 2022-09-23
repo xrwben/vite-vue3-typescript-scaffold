@@ -50,6 +50,17 @@ module.exports = {
       svg: 'always',
       math: 'always',
     }],
+    'vue/no-v-html': 'off', // 是否禁止使用v-html
+    'vue/attributes-order': 'off', // 属性是否要排序
+    'vue/attribute-hyphenation': 'off', // 属性名是否用横线分隔符 disabledEdit | disabled-edit
+    'vue/html-closing-bracket-newline': ['error', { // 标签>括号是否另起一行
+      'singleline': 'never',
+      'multiline': 'never'
+    }],
+    'vue/first-attribute-linebreak': ['error', { // 属性换行
+      'singleline': 'ignore',
+      'multiline': 'below'
+    }],
     // 'vue/script-indent': ['error', 2, {
     //   'baseIndent': 0,
     //   'switchCase': 0,

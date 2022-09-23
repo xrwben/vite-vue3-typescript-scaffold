@@ -18,10 +18,10 @@ module.exports = {
     },
     'autoprefixer': {
       overrideBrowserslist: [
-        "Android >= 4",
-        "iOS >= 7",
-        "Chrome > 31",
-        "ff > 31",
+        'Android >= 4',
+        'iOS >= 7',
+        'Chrome > 31',
+        'ff > 31',
         'last 10 version'
       ]
     }

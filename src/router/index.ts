@@ -9,6 +9,16 @@ const router = createRouter({
       component: () => import('@/views/explain/index.vue')
     },
     {
+      path: '/protocol',
+      name: 'protocol',
+      component: () => import('@/views/protocol/index.vue')
+    },
+    {
+      path: '/faceVerification',
+      name: 'faceVerification',
+      component: () => import('@/views/faceVerification/index.vue')
+    },
+    {
       path: '/answer',
       name: 'answer',
       component: () => import('@/views/answer/index.vue')
@@ -17,7 +27,17 @@ const router = createRouter({
       path: '/analysis',
       name: 'analysis',
       component: () => import('@/views/analysis/index.vue')
-    }
+    },
+    {
+      path: '/record',
+      name: 'record',
+      component: () => import('@/views/record/index.vue')
+    },
+    {
+      path: '/onlyPc',
+      name: 'onlyPc',
+      component: () => import('@/views/onlyPc/index.vue')
+    },
   ]
 })
 
