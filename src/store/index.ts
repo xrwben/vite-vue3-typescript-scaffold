@@ -44,10 +44,12 @@ export const examStore = defineStore({
   getters: {
     // 考试题目列表
     getExamQuestionList (state) {
+      const startTime = Date.now()
+      console.log(startTime)
       console.log('getExamQuestionList>>>>', state.examInfo)
       const list: any[] = []
       let filterList = []
-      if (state.examInfo?.contents?.length > 0) {
+      if (state.examInfo?.contents?.length) {
         state.examInfo.contents.forEach((item: any) => {
           list.push(...item.sub_questions)
         })
@@ -62,6 +64,9 @@ export const examStore = defineStore({
           answer_analysisImg: item.answer_analysis ? filterRichTextImg(item.answer_analysis) : []
         }))
       }
+      const endTime = Date.now()
+      console.log(endTime)
+      console.log(endTime - startTime)
       return filterList
     },
     // 考试答题列表

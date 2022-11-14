@@ -1,140 +1,111 @@
 <template>
-  <div class="authorize-container">
-    <NavBar title="身份验证"/>
-    <div class ="step-container">
-      <div class="item-step">
-        <van-icon class-prefix="van-icon" :name="active === 0 ? 'clock' : 'checked'" />
-        <p :class="[active === 0 ? 'activeLabel' : '', 'step-label']">填写个人信息</p>
+  <div class="face-verification-container">
+    <div class="steps-container">
+      <div class="step">
+        <i :name="[currentStep === 0 ? 'is-current' : 'is-success']">1</i>
+        <p :class="{'active': currentStep === 0}">填写个人信息</p>
       </div>
-      <div class="step-line"></div>
-      <div class="item-step">
-        <van-icon class-prefix="van-icon" :name="active === 1 ? 'clock' : active === 0 ?  'number-two' : 'checked'" />
-        <p :class="[active === 1 ? 'activeLabel' : '', 'step-label']">个人照片采集</p>
+      <div class="split-line"></div>
+      <div class="step">
+        <i :name="[currentStep === 1 ? 'is-current' : currentStep > 1 ? 'is-success' : '']">2</i>
+        <p :class="{'active': currentStep === 1}">个人照片采集</p>
       </div>
-      <div class="step-line"></div>
-      <div class="item-step">
-        <van-icon class-prefix="van-icon" :name="active !== 2  ? 'number-three' : verificationForm.pass_check ?  'checked' : 'clear'" />
-        <p :class="[active === 2 ? 'activeLabel' : '', 'step-label']">身份验证结果</p>
+      <div class="split-line"></div>
+      <div class="step">
+        <i :name="[currentStep === 2 ? (verifyResult.pass_check ? 'is-success' : 'is-fail') : '']">3</i>
+        <p :class="{'active': currentStep === 2}">身份核验结果</p>
       </div>
     </div>
-    <PersonInfo v-show="active === 0" @handleNextStep='handleNextStep'/>
-    <PersonPhoto v-show="active === 1" :paramsForm="paramsForm" @handleBackStep="handleBackStep" @handleNextVerify='handleNextVerify' />
-    <AuthorizeResult v-show="active === 2" :verificationForm="verificationForm" @resetVerify="resetVerify"/>
+    <!-- 个人信息 -->
+    <person-info v-show="currentStep === 0" @next-step="infoNextStep"></person-info>
+    <!-- 照片采集 -->
+    <take-photo v-show="currentStep === 1" :paramsForm="paramsForm" @prev-step="currentStep=0" @next-verify-result="nextVerify"></take-photo>
+    <!-- 验证结果 -->
+    <verification-result v-if="currentStep === 2" :verificationForm="verifyResult" @reset-verify="currentStep=0"></verification-result>
   </div>
 </template>
-<script>
-import { NavBar } from '@/components/index'
-import AuthorizeResult from './children/AuthorizeResult'
-import PersonPhoto from './children/PersonPhoto'
-import PersonInfo from './children/PersonInfo'
-export default {
-  components: {
-    AuthorizeResult,
-    PersonPhoto,
-    PersonInfo,
-    NavBar
-  },
-  data() {
-    return {
-      active: 0,
-      paramsForm: {},
-      verificationForm: {}
-    }
-  },
-  mounted() {
-    this.active = 0
-    this.paramsForm = {}
-    this.verificationForm = {}
-  },
-  methods: {
-    handleNextStep(row) {
-      const { record_id, exam_id } = this.$route.query
-      this.active += 1
-      this.paramsForm = {
-        ...row,
-        exam_id,
-        record_id
-      }
-    },
-    handleNextVerify(row) {
-      this.active += 1
-      this.verificationForm = row
-    },
-    handleBackStep() {
-      this.active -= 1 
-    },
-    resetVerify() {
-      this.active = 0
-    }
+
+<script setup lang="ts">
+import { reactive, toRefs } from 'vue'
+import PersonInfo from './component/PersonInfo.vue'
+import TakePhoto from './component/TakePhoto.vue'
+import VerificationResult from './component/VerificationResult.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const state: any = reactive({
+  currentStep: 0,
+  paramsForm: null,
+  verifyResult: null
+})
+const { currentStep, paramsForm, verifyResult }  = toRefs(state)
+
+// 个人信息下一步
+const infoNextStep = (row: any) => {
+  const { record_id, exam_id } = route.query
+  state.currentStep += 1
+  state.paramsForm = {
+    ...row,
+    exam_id,
+    record_id
   }
 }
+// 验证下一步
+const nextVerify = (data: any) => {
+  state.currentStep = 2
+  state.verifyResult = data
+}
 </script>
+
 <style lang="less">
-.authorize-container {
-  .step-container {
+.face-verification-container {
+  .steps-container {
+    height: 82px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 66px 16px 18px;
-    font-size: 14px;
-    .step-line {
-      width: 30px;
-      height: 2px;
-      background-color: #DCDCDC;
-    }
-    .item-step {
-      text-align: center;
-      .step-label {
-        margin-top: 8px;
-        color:#999999
-      }
-      .activeLabel {
-        color:#333333
-      }
-      .van-icon {
-        font-size: 20px;
-      }
-      .van-icon-clock {
-        color: @color-theme;
-      }
-      .van-icon-checked {
-        color:#0AD0B6
-      }
-      .van-icon-clear {
-        color:#FF7548
-      }
-      .van-icon-number-two,.van-icon-number-three {
-        display: inline-block;
-        line-height: 20px;
-        text-align: center;
+    padding: 0 16px;
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & > i {
         width: 20px;
         height: 20px;
+        background: #dcdcdc;
         border-radius: 50%;
-        background:#DCDCDC;
-        color: white;
+        font-style: normal;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &[name="is-current"] {
+          font-size: 0;
+          background: url('@/assets/svg/icon-clock.svg') no-repeat center / 100% 100%;
+        }
+        &[name="is-success"] {
+          font-size: 0;
+          background: url('@/assets/svg/success-fill-green.svg') no-repeat center / 100% 100%;
+        }
+        &[name="is-fail"] {
+          font-size: 0;
+          background: url('@/assets/svg/wrong-fill.svg') no-repeat center / 100% 100%;
+        }
+      }
+      & > p {
+        color: #999;
         font-size: 14px;
-      }
-      .van-icon-number-two::before {
-        content: '2';
-      }
-      .van-icon-number-three::before {
-        content: '3';
+        margin-top: 8px;
+        &.active {
+          color: #333;
+        }
       }
     }
-  }
-  .bottom-btn-box {
-    position: fixed;
-    bottom:0px;
-    width: 100%;
-    .van-button {
-      width: 100%;
-      border:unset;
-      border-radius:unset;
-      height: 48px;
-    }
-    .van-button--plain {
-      background: #F5F7F9;
-      color: #666666
+    .split-line {
+      width: 30px;
+      height: 2px;
+      background: #dcdcdc;
     }
   }
 }

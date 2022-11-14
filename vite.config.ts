@@ -41,6 +41,10 @@ export default defineConfig(({ command, mode }) => {
         '/api': {
           target: 'http://dev.ntsapps.oa.com/exam/',
           changeOrigin: true
+        },
+        '/training-portal-common': {
+          target: 'http://dev.ntsapps.oa.com',
+          changeOrigin: true
         }
       }
     },

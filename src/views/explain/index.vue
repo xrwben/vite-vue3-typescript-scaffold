@@ -79,8 +79,19 @@
       :image="getImageUrl('img/empty.svg')"
       description="暂无考试信息">
     </van-empty>
-    <verification-tips-dialog v-model:visible="isShowVerificationTips"></verification-tips-dialog>
-    <!-- <autographPopup v-model:show-popup="autographPopupShow" :record_id="explainInfo.record_id" @relaod="relaod" /> -->
+
+    <!-- 人脸核验提示 -->
+    <verification-tips-dialog
+      v-model:visible="isShowVerificationTips"
+      @face-verification="gofaceVerification">
+    </verification-tips-dialog>
+    <!-- 考前签字弹窗 -->
+    <signature-popup
+      v-if="isShowSignaturePopup"
+      v-model:visible="isShowSignaturePopup"
+      :recordId="explainInfo.record_id"
+      @relaod="getExplainInfo">
+    </signature-popup>
   </div>
 </template>
 
@@ -89,6 +100,7 @@ import { reactive, toRefs, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { Toast } from 'vant'
 import VerificationTipsDialog from './component/VerificationTipsDialog.vue';
+import SignaturePopup from './component/SignaturePopup.vue'
 import { getExplainInfoAPI, getProtocolInfoAPI, getExamPaperAPI } from '@/api/index'
 import { examStore } from '@/store/index'
 import { getImageUrl } from '@/utils/getImageUrl'
@@ -105,16 +117,18 @@ const store = examStore()
 interface dataType {
   explainInfo: any,
   checked: boolean,
-  isShowVerificationTips: boolean
+  isShowVerificationTips: boolean,
+  isShowSignaturePopup: boolean
 }
 const state: dataType = reactive({
   explainInfo: null,
   checked: false,
-  isShowVerificationTips: false
+  isShowVerificationTips: false, // 人脸核验提示
+  isShowSignaturePopup: false // 考前签字弹窗
 })
 // let explainInfo: any = reactive({})
 // let checked = ref(false)
-let { explainInfo, checked, isShowVerificationTips } = toRefs(state)
+let { explainInfo, checked, isShowVerificationTips, isShowSignaturePopup } = toRefs(state)
 // console.log(state.explainInfo)
 
 const getStatus = computed(() => {
@@ -216,8 +230,9 @@ const startTest = () => {
     return
   }
   // 考前签名
-  if (state.explainInfo.setting.anti_cheat.enabled_sign && !state.explainInfo.is_testing_sign) {
-    // this.autographPopupShow = true
+  if (state.explainInfo.setting.anti_cheat?.enabled_sign && !state.explainInfo.is_testing_sign) {
+    state.isShowSignaturePopup = true
+    console.log('考前签名', state.isShowSignaturePopup)
     return
   }
   getExamPapers()
@@ -273,7 +288,17 @@ const getExamPapers = () => {
     Toast.clear()
   })
 }
-
+// 跳转人脸核验页面
+const gofaceVerification = () => {
+  const { exam_id, record_id } = state.explainInfo
+  router.push({
+    path: '/faceVerification',
+    query: {
+      exam_id,
+      record_id
+    }
+  })
+}
 // 签名后重新请求
 // const relaod = () => {
 //   getExplainInfo()

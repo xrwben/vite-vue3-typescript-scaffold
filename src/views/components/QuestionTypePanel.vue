@@ -124,7 +124,6 @@ const statusClass = (item: any) => {
         border-radius: 2px;
         color: #333;
         font-size: 14px;
-        text-align: center;
         line-height: 28px;
         overflow: hidden;
         cursor: pointer;

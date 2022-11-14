@@ -4,6 +4,11 @@ const router = createRouter({
   history: createWebHistory('/exam-mob/'),
   routes: [
     {
+      path: '/exam',
+      name: 'exam',
+      component: () => import('@/views/exam/index.vue')
+    },
+    {
       path: '/explain',
       name: 'explain',
       component: () => import('@/views/explain/index.vue')
@@ -22,6 +27,11 @@ const router = createRouter({
       path: '/answer',
       name: 'answer',
       component: () => import('@/views/answer/index.vue')
+    },
+    {
+      path: '/result',
+      name: 'result',
+      component: () => import('@/views/result/index.vue')
     },
     {
       path: '/analysis',

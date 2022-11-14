@@ -63,7 +63,7 @@ watch(props, (val) => {
 
 // 题目类型分类列表
 const questionCategoryList = computed(() => {
-  return store.examInfo.contents
+  return store?.examInfo?.contents
 })
 // 已作答问题列表
 const answeredList = computed(() =>  {

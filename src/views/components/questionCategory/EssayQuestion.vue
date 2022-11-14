@@ -3,7 +3,6 @@
     <div
       v-if="disabledEdit"
       class="analysis-content"
-      key="analysis"
       v-html="currentValue">
     </div>
     <van-field
@@ -63,10 +62,11 @@ const changeValue = () => {
   .analysis-content {
     min-height: 100px;
   }
-  .answer-content {
+  .analysis-content, .answer-content {
     min-height: 100px;
     background: #fafafa;
     border-radius: 6px;
+    font-size: 16px;
     padding: 6px 8px;
     .van-field__body {
       height: 100%;

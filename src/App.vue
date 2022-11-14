@@ -4,7 +4,6 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
 import { getUserInfoAPI } from '@/api/index'
 import { examStore } from '@/store/index'
 
@@ -21,9 +20,7 @@ const getUserInfo = () => {
     }
   })
 }
-onBeforeMount(() => {
-  getUserInfo()
-})
+getUserInfo()
 </script>
 
 <style lang="less">

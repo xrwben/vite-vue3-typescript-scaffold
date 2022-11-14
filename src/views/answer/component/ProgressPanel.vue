@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { examStore } from '@/store/index'
 
 const store = examStore()
@@ -41,6 +41,9 @@ const timeFormat = computed(() => {
   }
 })
 
+onBeforeUnmount(() => {
+  stopCountDown()
+})
 onMounted(() => {
   const startTime = new Date(store.examInfo.start_time).getTime()
   const currrentTime = new Date().getTime()

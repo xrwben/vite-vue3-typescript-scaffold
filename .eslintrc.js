@@ -3,14 +3,14 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    node: true
   },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
     // 'plugin:vue/vue3-strongly-recommended',
     'plugin:@typescript-eslint/recommended',
-    // "prettier",
+    'prettier'
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -20,14 +20,14 @@ module.exports = {
     ecmaFeatures: {
       globalReturn: false,
       impliedStrict: false,
-      jsx: true,
-    },
+      jsx: true
+    }
   },
   // plugins：eslint-plugin-vue @typescript-eslint/eslint-plugin eslint-plugin-prettier的缩写
   plugins: [
     'vue',
     '@typescript-eslint',
-    // "prettier"
+    'prettier'
   ],
   rules: {
     indent: ['error', 2],
@@ -48,7 +48,7 @@ module.exports = {
         component: 'any',
       },
       svg: 'always',
-      math: 'always',
+      math: 'always'
     }],
     'vue/no-v-html': 'off', // 是否禁止使用v-html
     'vue/attributes-order': 'off', // 属性是否要排序
@@ -69,4 +69,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['off'],
     // "prettier/prettier": "warn",
   },
+  globals: {
+    'contentCenter': true
+  }
 };

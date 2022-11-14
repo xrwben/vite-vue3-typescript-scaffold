@@ -91,7 +91,7 @@ const _createCanvasImg = (videoNode, picture = { width: 600, height: 300, name: 
   ctx.drawImage(videoNode, 0, 0, canvas.width, canvas.height)
   const dataURL = canvas.toDataURL('image/jpeg', 1)
   return _dataURLtoFile(dataURL, `${picture.name}-exam.jpg`)
-} 
+}
 
 // const configData = {
 //   videoNode: 'node',
@@ -125,9 +125,8 @@ const _uploadContentCenter = (config) => {
   const { videoNode, picture, cos, request } = config
   const file = _createCanvasImg(videoNode, picture)
   console.log('上传', file)
-  /* eslint-disable */
   const uplaodIns = new contentCenter.uploadFile({
-    isEncrypt:true,
+    isEncrypt: true,
     file: file,
     type: 0, // 0表示上传图片，1视频 2音频 3文档
     appId: cos.appId,
@@ -204,7 +203,7 @@ const visibilityEvent = () => {
     cheatInfo.hideTime = Date.now()
     localStorage.setItem('cheatInfo', JSON.stringify({
       ...info,
-      hideTime: cheatInfo.hideTime 
+      hideTime: cheatInfo.hideTime
     }))
   }
   if (document.visibilityState === 'visible') {

@@ -15,28 +15,17 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
-
-const route = useRoute()
-const router = useRouter()
-
 defineProps({
   visible: {
     type: Boolean,
     default: () => false
   }
 })
-const emit = defineEmits(['update:visible'])
+const emit = defineEmits(['update:visible', 'faceVerification'])
 
 const close = (type: string) => {
-  const { exam_id } = route.query
   if (type === 'confirm') {
-    router.push({
-      path: '/faceIdVerfication',
-      query: {
-        exam_id
-      }
-    })
+    emit('faceVerification')
   }
   emit('update:visible', false)
 }

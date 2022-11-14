@@ -1,6 +1,7 @@
 <template>
   <div class="pagination-control-button">
     <div class="btn" @click="showSituationPopup">答题卡</div>
+    <div v-if="enableCanSendCertificate" class="btn" @click="getCertificate(store.examResultInfo, 'analysis')">获取证书</div>
     <div
       v-if="paperShowType === 'page'"
       :class="['btn', {'forbid': isFisrtQuestion}]"
@@ -8,25 +9,26 @@
       上一题
     </div>
     <div
-      v-if="paperShowType === 'page' && !isLastQuestion || useScene === 'analysis'"
+      v-if="paperShowType === 'page' && (!isLastQuestion || useScene === 'analysis')"
       :class="['btn', 'next', {'forbid': isLastQuestion}]"
       @click="next">
       下一题
     </div>
-    <div v-else class="btn submit" @click="submit">提交试卷</div>
+    <div v-if="useScene === 'answer' && ( paperShowType === 'all' || (paperShowType === 'page' && isLastQuestion))" class="btn submit" @click="submit">提交试卷</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { examStore } from '@/store/index';
+import getCertificate from '@/hooks/getCertificate';
 
 const store = examStore()
 
 const emit = defineEmits(['showSituationPopup', 'submitTips'])
 
 const props = defineProps({
-  // 使用场景（答题面板、分析面板）
+  // 使用场景（答题、解析）
   useScene: {
     type: String,
     default: 'answer'
@@ -55,15 +57,24 @@ const isFisrtQuestion = computed(() => {
 const isLastQuestion = computed(() => {
   return store.currentQuestionIndex === questionList.value.length - 1
 })
+// 能否领取证书
+const enableCanSendCertificate = computed(() => {
+  return store.examResultInfo?.result.enable_can_send_certificate && !(store.examResultInfo.result.have_cheated_by_system || store.examResultInfo.result.have_cheated_by_admin)
+})
 
 // 答题卡
 const showSituationPopup = () => {
-  console.log('弹出')
   emit('showSituationPopup')
+}
+// 滚动到顶部
+const scrollTop = () => {
+  const examQuestionArea = document.querySelector('#exam-question-area') as HTMLDivElement
+  examQuestionArea.scrollTo({ top: 0 })
 }
 // 上一题
 const prev = () => {
   const _index = store.currentQuestionIndex - 1
+  scrollTop()
   store.$patch((state: any) => {
     state.currentQuestionIndex = _index
   })
@@ -71,6 +82,7 @@ const prev = () => {
 // 下一题
 const next = () => {
   const _index = store.currentQuestionIndex + 1
+  scrollTop()
   store.$patch((state: any) => {
     state.currentQuestionIndex = _index
   })
@@ -85,7 +97,7 @@ const submit = () => {
 .pagination-control-button {
   height: 100%;
   background: #fff;
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid rgba(220, 220, 220, 0.3);
   color: #666;
   font-size: 17px;
   display: flex;
@@ -98,14 +110,14 @@ const submit = () => {
       border-right: 1px solid #f2f2f2;
     }
   }
+  .next, .submit {
+    color: #fff;
+    background: #3464e0;
+  }
   .forbid {
     color: #acacac;
     background: #f2f2f2;
     pointer-events: none;
-  }
-  .next, .submit {
-    color: #fff;
-    background: #3464e0;
   }
 }
 </style>
